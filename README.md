@@ -9,6 +9,9 @@ knowledge is written to files in the repo — each with a defined load behavior
 (always / targeted / on demand). Every fresh session reads those files and
 continues where the last one stopped. Forgetting is fine; losing the *why* is not.
 
+**The full explanation, with diagrams:**
+[henroxx.github.io/agentic-coding-methodology](https://henroxx.github.io/agentic-coding-methodology/)
+
 ## Quick start
 
 1. Make the skills available globally (once):

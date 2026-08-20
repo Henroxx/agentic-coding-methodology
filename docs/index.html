@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic Coding Methodology</title>
+<meta name="description" content="A file-based methodology for working with coding agents on projects that run for months — practically unlimited context, because knowledge leaves the chat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #F7F8FA;
+    --surface: #FFFFFF;
+    --ink: #1D232B;
+    --muted: #5A6472;
+    --line: #DEE3EA;
+    --code-bg: #EEF1F5;
+    --accent: #B07818;
+    --accent-soft: #B0781822;
+    --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+    --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    --mono: "IBM Plex Mono", "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14181E;
+      --surface: #1C222B;
+      --ink: #E8ECF1;
+      --muted: #98A2B0;
+      --line: #2C3440;
+      --code-bg: #232B36;
+      --accent: #E2A94E;
+      --accent-soft: #E2A94E26;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14181E;
+    --surface: #1C222B;
+    --ink: #E8ECF1;
+    --muted: #98A2B0;
+    --line: #2C3440;
+    --code-bg: #232B36;
+    --accent: #E2A94E;
+    --accent-soft: #E2A94E26;
+  }
+
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+
+  main { max-width: 46rem; margin: 0 auto; padding: 0 1.25rem 6rem; }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+  code, pre { font-family: var(--mono); font-size: 0.86em; }
+  code { background: var(--code-bg); border-radius: 4px; padding: 0.12em 0.35em; }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1rem 1.15rem;
+    overflow-x: auto;
+    line-height: 1.55;
+  }
+  pre code { background: none; padding: 0; }
+
+  h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.15; }
+  h2 { font-size: 1.65rem; font-weight: 700; margin: 3.5rem 0 1rem; padding-top: 2.5rem; border-top: 1px solid var(--line); }
+  h3 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+  p, ul, ol { margin-bottom: 1rem; }
+  ul, ol { padding-left: 1.4rem; }
+  li { margin-bottom: 0.4rem; }
+  strong { font-weight: 600; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  header.hero { padding: 5rem 0 1rem; }
+  header.hero h1 { font-size: clamp(2.3rem, 6vw, 3.4rem); font-weight: 700; margin: 0.5rem 0 1.2rem; }
+  header.hero .thesis {
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 40rem;
+    text-wrap: balance;
+  }
+  header.hero .thesis em { color: var(--ink); font-style: normal; font-weight: 600; }
+  .repo-link { margin-top: 1.5rem; font-size: 0.95rem; }
+
+  nav.toc {
+    margin: 2.5rem 0 0;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    font-size: 0.92rem;
+  }
+  nav.toc ol { margin: 0.3rem 0 0; padding-left: 1.2rem; columns: 2; column-gap: 2rem; }
+  nav.toc li { margin-bottom: 0.25rem; break-inside: avoid; }
+  @media (max-width: 540px) { nav.toc ol { columns: 1; } }
+
+  figure { margin: 1.75rem 0; }
+  figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; }
+
+  /* Loop diagram */
+  .loop { display: flex; flex-direction: column; gap: 0; align-items: stretch; }
+  .loop-row { display: flex; gap: 0.6rem; align-items: stretch; flex-wrap: wrap; }
+  .node {
+    flex: 1 1 8rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.88rem;
+    line-height: 1.4;
+  }
+  .node .t { font-weight: 600; display: block; }
+  .node .d { color: var(--muted); font-size: 0.82rem; }
+  .node.accent { border-color: var(--accent); background: var(--accent-soft); }
+  .arrow-down {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 0.35rem 0;
+    font-family: var(--mono);
+  }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 1.5rem 0; border: 1px solid var(--line); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.9rem; background: var(--surface); }
+  th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  th {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  td code { white-space: nowrap; }
+  td.always { color: var(--accent); font-weight: 600; }
+
+  /* Layers */
+  .layers { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.5rem 0; }
+  .layer {
+    display: grid;
+    grid-template-columns: 14rem 1fr;
+    gap: 0.25rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+  .layer .path { font-family: var(--mono); font-size: 0.82rem; font-weight: 500; }
+  .layer .who { color: var(--muted); font-size: 0.78rem; font-family: var(--mono); }
+  .layer .what { grid-column: 2; grid-row: 1 / span 2; color: var(--muted); }
+  .layer.private { border-left-style: dashed; }
+  @media (max-width: 600px) {
+    .layer { grid-template-columns: 1fr; }
+    .layer .what { grid-column: 1; grid-row: auto; }
+  }
+
+  /* Skill cards */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.75rem; margin: 1.5rem 0; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    font-size: 0.9rem;
+  }
+  .card h3 { margin: 0 0 0.4rem; font-family: var(--mono); font-size: 0.95rem; font-weight: 500; color: var(--accent); }
+  .card p { margin: 0; color: var(--muted); font-size: 0.87rem; }
+
+  .example-split { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1.5rem 0; }
+  @media (max-width: 640px) { .example-split { grid-template-columns: 1fr; } }
+  .example-split pre { margin: 0; font-size: 0.78rem; }
+  .example-split .label { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); margin-bottom: 0.35rem; }
+
+  .principle { margin-bottom: 0.9rem; }
+  .principle b { font-weight: 600; }
+
+  blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 0.2rem 0 0.2rem 1.1rem;
+    margin: 1.5rem 0;
+    color: var(--muted);
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero">
+  <span class="eyebrow">agentic-coding-methodology</span>
+  <h1>Context that outlives the chat</h1>
+  <p class="thesis">A file-based methodology for working with coding agents on projects that run for
+  months and thousands of messages. Practically unlimited context — <em>not because the window grows,
+  but because after every task the relevant knowledge lands in files in the repo.</em> Every fresh
+  session reads them and continues where the last one stopped.</p>
+  <p class="repo-link">Templates and skills: <a href="https://github.com/Henroxx/agentic-coding-methodology">github.com/Henroxx/agentic-coding-methodology</a></p>
+</header>
+
+<nav class="toc" aria-label="Contents">
+  <span class="eyebrow">Contents</span>
+  <ol>
+    <li><a href="#problem">The problem</a></li>
+    <li><a href="#loop">The loop</a></li>
+    <li><a href="#files">What lives where</a></li>
+    <li><a href="#layers">Instruction layers</a></li>
+    <li><a href="#skills">The skills</a></li>
+    <li><a href="#control">Staying in control</a></li>
+    <li><a href="#scaling">Scaling</a></li>
+    <li><a href="#principles">Principles</a></li>
+    <li><a href="#adopt">Adopting it</a></li>
+  </ol>
+</nav>
+
+<h2 id="problem">The problem</h2>
+<p>Two effects, both familiar to anyone who has worked with an agent for more than a day:</p>
+<ul>
+  <li><strong>A full context window makes access to any single item in it fuzzier.</strong>
+  Answers get sharper when the window holds less, not more.</li>
+  <li><strong>Summarizing keeps the <em>what</em> and loses the <em>why</em>.</strong> Compaction and
+  auto-extracted memories reliably preserve that a decision was made — and reliably drop the
+  reasoning behind it, which is exactly the part you need two months later.</li>
+</ul>
+<p>So this methodology does not rely on the agent remembering anything. Knowledge is deliberately
+written out into versioned files, each with a defined load behavior — then every session is allowed
+to forget. What gets lost is only what never mattered.</p>
+
+<h2 id="loop">The loop</h2>
+<p>One task, one cycle. At the end, the knowledge is in files instead of the chat:</p>
+
+<figure>
+  <div class="loop">
+    <div class="loop-row">
+      <div class="node"><span class="t">Plan</span><span class="d">Anything bigger than a small change gets a plan and an OK first. Approved plans for larger blocks become files in <code>plans/</code>.</span></div>
+      <div class="node"><span class="t">Task</span><span class="d">Decisions go into the files the moment they fall — not batched at session end.</span></div>
+      <div class="node accent"><span class="t">/handoff</span><span class="d">After every finished task, at latest ~150k tokens: persist the session delta, output a handoff block.</span></div>
+    </div>
+    <div class="arrow-down">&darr;</div>
+    <div class="loop-row">
+      <div class="node"><span class="t">Same chat</span><span class="d"><code>/compact</code> keeps the newest content densest — and the newest content is the handoff block. Nothing to copy.</span></div>
+      <div class="node"><span class="t">Fresh chat</span><span class="d">Paste the handoff block as the first message. A fresh agent with a small window continues seamlessly.</span></div>
+    </div>
+  </div>
+  <figcaption>The measure for every documentation decision: could a fresh agent continue from here?
+  If not, something is missing in the files.</figcaption>
+</figure>
+
+<h2 id="files">What lives where</h2>
+<p>Context is the scarce resource, not compute. Every file has a defined load behavior —
+<strong>always, targeted, or on demand</strong> — and whatever loads always stays small. That is why
+index files hold references, not explanations.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>File</th><th>Read</th><th>Content</th></tr></thead>
+  <tbody>
+    <tr><td><code>CLAUDE.md</code></td><td class="always">always, fully</td><td>Behavior rules only. No project knowledge, no status, no commands.</td></tr>
+    <tr><td><code>docs/agentcontext/PROJECT.md</code></td><td class="always">always, fully</td><td>Goal, status, to-dos, open decisions. Short, with references into DETAILS.</td></tr>
+    <tr><td><code>docs/agentcontext/DETAILS.md</code></td><td>targeted sections</td><td>One section per concept, with an as-of date and the <em>reasoning</em>. May grow long — it is never read fully.</td></tr>
+    <tr><td><code>docs/agentcontext/plans/</code></td><td>during that block</td><td>Approved plans for larger work blocks. Deleted once done and folded into DETAILS.</td></tr>
+    <tr><td><code>docs/agentcontext/HISTORY.md</code></td><td>only when writing</td><td>Date, what, why — more verbose than a git log. Optional.</td></tr>
+    <tr><td><code>docs/agentcontext/TESTING.md</code></td><td>on changes</td><td>What must work, as a checkable scenario list. Optional.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>The split in one example — the <span style="color:var(--accent); font-weight:600">reference</span>
+lives in the index, the reasoning next to it:</p>
+
+<div class="example-split">
+  <div>
+    <div class="label">PROJECT.md — the index</div>
+<pre><code>- [x] Grain decided (2026-08-12):
+      one row = one request.
+      Reason: polling not separable
+      otherwise.
+      &rarr; DETAILS "Modeling"</code></pre>
+  </div>
+  <div>
+    <div class="label">DETAILS.md — the jump target</div>
+<pre><code>## Modeling
+*(as of 2026-08-12)*
+
+Three variants were considered &hellip;
+B was rejected because &hellip;</code></pre>
+  </div>
+</div>
+
+<p>Reference-instead-of-explanation is the whole trick: PROJECT.md stays small enough to always ride
+along, without losing knowledge. And because everything is plain Markdown, the structure is
+tool-agnostic — only the thin <code>CLAUDE.md</code> wrapper is Claude-specific.</p>
+
+<h2 id="layers">Instruction layers</h2>
+<p>Rules live on four layers, each with a defined audience. The committed project file is a
+<strong>team contract</strong> — it enforces only what the team agreed on. Personal preferences never
+leak into it.</p>
+
+<div class="layers">
+  <div class="layer">
+    <span class="path">repo: CLAUDE/global/CLAUDE.md</span>
+    <span class="who">the person — public, versioned</span>
+    <span class="what">Communication and working style, valid in every repo. Imported by the local file below.</span>
+  </div>
+  <div class="layer private">
+    <span class="path">~/.claude/CLAUDE.md</span>
+    <span class="who">the machine — private</span>
+    <span class="what">A small local file: one <code>@import</code> of the public part, plus machine-private facts below it that never get committed.</span>
+  </div>
+  <div class="layer">
+    <span class="path">&lt;repo&gt;/CLAUDE.md</span>
+    <span class="who">the team — committed</span>
+    <span class="what">The collaboration contract for this repo: workflow, code and git rules, docs layout. Ends with a <code>methodology:</code> version stamp.</span>
+  </div>
+  <div class="layer private">
+    <span class="path">&lt;repo&gt;/CLAUDE.local.md</span>
+    <span class="who">the person in this repo — gitignored</span>
+    <span class="what">Personal collaboration rules that shouldn't bind teammates. Read automatically by Claude Code.</span>
+  </div>
+</div>
+
+<p>In solo projects the last split doesn't matter — everything may live in <code>CLAUDE.md</code>.
+The moment a repo is shared, personal rules move to <code>CLAUDE.local.md</code>.</p>
+
+<h2 id="skills">The skills</h2>
+<p>Procedures live in skills, not in the always-loaded files: a skill costs one description line of
+context until it is actually invoked. Rules that must hold on <em>every</em> action (commit style,
+license checks) stay in <code>CLAUDE.md</code> — skill loading is probabilistic, invariants are not.</p>
+
+<div class="cards">
+  <div class="card">
+    <h3>/setup-project</h3>
+    <p>Scaffolds the methodology into a repo: two short question rounds, then CLAUDE.md,
+    agentcontext files and the handoff skill — as a single revertible commit. Merges instead of
+    overwriting when files already exist. Free-text argument: a variant name and any info you
+    already want to give.</p>
+  </div>
+  <div class="card">
+    <h3>/handoff</h3>
+    <p>Ends a session cleanly: collects the session delta (decisions, status, learnings), persists
+    it to the right files, and prints a 30–50 line handoff block for the next session — references
+    only, no duplicated content, no secrets.</p>
+  </div>
+  <div class="card">
+    <h3>/update-project</h3>
+    <p>Compares the repo's <code>methodology:</code> stamp with the methodology repo's HEAD,
+    translates the diff into proposed changes, and applies only what you pick. Local adaptations
+    are never silently reverted.</p>
+  </div>
+</div>
+
+<h2 id="control">Staying in control</h2>
+<p>Control doesn't mean being asked more. It means every decision is visible, reversible, and none
+was taken silently:</p>
+<ul>
+  <li><strong>Nothing bigger without an OK.</strong> Plan first — the "yes" turns it into code.</li>
+  <li><strong>No silent decisions.</strong> Two viable paths &rarr; both are named, with a reasoned
+  recommendation. The human decides.</li>
+  <li><strong>No hidden assumptions.</strong> What the agent doesn't know, it asks — or writes down
+  visibly as <code>&gt; **ASSUMPTION:**</code> so it can be corrected instead of sinking.</li>
+  <li><strong>Everything is in git.</strong> The setup itself is one commit; one command reverts the
+  whole methodology.</li>
+</ul>
+
+<h2 id="scaling">Scaling</h2>
+<p>PROJECT + DETAILS with jump targets is deliberately centralized structured note-taking. It scales
+until targeted jumping into DETAILS.md becomes unreliable. Then there are two growth paths, and they
+complement each other:</p>
+<ul>
+  <li><strong>Knowledge scales via a <code>details/</code> folder.</strong> A section that outgrows
+  targeted reading moves to <code>docs/agentcontext/details/&lt;concept&gt;.md</code>; the reference in
+  PROJECT.md now points to a file instead of a section. PROJECT.md stays the single index either way.</li>
+  <li><strong>Behavior scales via per-module <code>CLAUDE.md</code> files.</strong> Module-specific
+  rules go into a small <code>backend/CLAUDE.md</code> — Claude Code loads it automatically when files
+  there are touched. Kept tiny: local rules plus pointers, never knowledge dumps.</li>
+</ul>
+<p>The reference principle stays identical in both — only the loading becomes mechanical instead of
+disciplined.</p>
+
+<h2 id="principles">Principles</h2>
+<p>The rules the file structure follows from. They hold even if the concrete files are named
+differently:</p>
+<div>
+  <p class="principle"><b>Context is the scarce resource, not compute.</b> Defined load behavior per file; what always loads stays small.</p>
+  <p class="principle"><b>The goal is a seamless restart.</b> Could a fresh agent with a small context continue from here? If not, the files are missing something.</p>
+  <p class="principle"><b>Persist immediately.</b> What should be documented at session end is already imprecise at session end. Write inline, don't batch.</p>
+  <p class="principle"><b>The why is worth more than the what.</b> Summaries keep results and lose reasons — so reasons are written explicitly, for decisions, rules, and rejected alternatives.</p>
+  <p class="principle"><b>Show options, then decide.</b> No path is presented as the only one. "How you'd build it under conditions X" is kept separate from "what we do for now, pragmatically".</p>
+  <p class="principle"><b>Delegate heavy exploration.</b> Research that would pull many files into the main window runs in a subagent; only the condensed result comes back.</p>
+  <p class="principle"><b>Extract skills from repetition.</b> A procedure that repeats across sessions becomes a skill — never speculatively.</p>
+  <p class="principle"><b>No document creep.</b> New files only when content truly fits nowhere — then marked <code>TEMPORARY</code> with a deletion condition.</p>
+  <p class="principle"><b>Living documents.</b> Outdated assumptions are removed, not annotated. Documentation you can't trust is worse than none.</p>
+  <p class="principle"><b>Global only after it proved itself.</b> New rules land in the project CLAUDE.md; only what carried across several projects moves up a layer.</p>
+</div>
+
+<h2 id="adopt">Adopting it</h2>
+<p>Everything is plain Markdown and a few hundred lines — take what fits, change what doesn't. The
+files are living documents, including the ones containing the rules.</p>
+<pre><code># make the skills available globally (adjust the clone path)
+ln -s &lt;clone&gt;/CLAUDE/skills/setup-project ~/.claude/skills/setup-project
+ln -s &lt;clone&gt;/CLAUDE/skills/update-project ~/.claude/skills/update-project
+
+# then, in any project:
+/setup-project</code></pre>
+<p>The full templates, skills and concept doc live in the repo:
+<a href="https://github.com/Henroxx/agentic-coding-methodology">Henroxx/agentic-coding-methodology</a>.</p>
+
+<blockquote>Grown practice from several long projects, not a finished recipe. Some of it you will
+delete after a month — that is the system working as intended.</blockquote>
+
+<footer>
+  <p>agentic-coding-methodology &middot; <a href="https://github.com/Henroxx/agentic-coding-methodology">GitHub</a></p>
+</footer>
+
+</main>
+</body>
+</html>
