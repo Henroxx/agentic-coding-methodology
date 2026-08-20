@@ -22,3 +22,13 @@ My name is Henry.
 - New projects: before any coding starts, set up the working methodology
   (`/setup-project`) — the project CLAUDE.md carries all code, git and
   dependency rules.
+
+## Machine
+
+Machine-wide facts about my computer. If you adopt this file for yourself,
+replace or remove these — and note the pattern: your local
+`~/.claude/CLAUDE.md` imports this file via `@` and can hold additional
+machine facts below the import that never get committed.
+
+- Docker runs via Colima, not Docker Desktop.
+- Homebrew is a user-level install at `~/homebrew`.
