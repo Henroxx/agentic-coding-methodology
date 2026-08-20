@@ -104,6 +104,10 @@ CLAUDE.local.md.
 The rules the file structure follows from. They hold even if the concrete
 files are named differently.
 
+- **Behavior in CLAUDE.md, knowledge in the context files.** CLAUDE.md says
+  how to work, never what the project is — no stack, no architecture, no
+  status. Knowledge lives in PROJECT/DETAILS. Mixing the two makes both
+  unreliable: rules drown in facts, facts go stale in a file nobody updates.
 - **Context is the scarce resource, not compute.** Defined load behavior per
   file; what always loads stays small.
 - **The goal is a seamless restart.** The measure for every documentation
