@@ -121,7 +121,8 @@ already said.
    reasoning unless self-explanatory.
 
 7. **Clean up and secure as one commit.** Check/extend `.gitignore`
-   (.DS_Store, venv, caches). Version `docs/agentcontext/` and `CLAUDE.md` — the
+   (.DS_Store, venv, caches, CLAUDE.local.md — personal rules never get
+   committed). Version `docs/agentcontext/` and `CLAUDE.md` — the
    project knowledge travels with the code and lands in the backup. Then one
    commit for the whole setup, respecting the git permission from round 2.
    Note the commit hash for the final report.
@@ -151,3 +152,4 @@ question, you decide yourself.
 | `{{GIT_PERMISSIONS}}` | round 2 · 3 | Spell out explicitly what is allowed without asking and what isn't. |
 | `{{BACKUP_NOTE}}` | you | If no cloud sync exists: write "git is the only backup". It changes behavior noticeably. |
 | `{{OPTIONAL_DOC_LINES}}` | round 2 · 1 | One line per chosen file, in the style of the existing docs list. |
+| `{{METHODOLOGY_VERSION}}` | methodology repo | `git -C ~/dev/private_repos/agentic-coding-methodology rev-parse --short HEAD` plus date, e.g. `f359a63 (2026-08-20)`. Lets a later update run see what this repo was scaffolded from. |

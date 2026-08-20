@@ -11,11 +11,13 @@ continues where the last one stopped. Forgetting is fine; losing the *why* is no
 
 ## Quick start
 
-1. Make the setup skill available globally (once):
+1. Make the setup skill and the global preferences available (once):
 
    ```bash
    ln -s ~/dev/private_repos/agentic-coding-methodology/CLAUDE/skills/setup-project \
          ~/.claude/skills/setup-project
+   ln -sf ~/dev/private_repos/agentic-coding-methodology/CLAUDE/global/CLAUDE.md \
+         ~/.claude/CLAUDE.md
    ```
 
 2. In any new project, start Claude Code and run:
@@ -33,13 +35,14 @@ continues where the last one stopped. Forgetting is fine; losing the *why* is no
 ```
 CLAUDE/                  # implementation for Claude Code
   METHODOLOGY.md         # the concept: workflow, file roles, principles
+  global/CLAUDE.md       # my user-level preferences (~/.claude/CLAUDE.md)
   templates/             # source of truth for scaffolded files
     CLAUDE.project.md    # project-level CLAUDE.md template
     agentcontext/        # PROJECT, DETAILS, HISTORY, TESTING templates
   skills/
     setup-project/       # scaffolds the methodology into a repo
     handoff/             # ends a session cleanly, persists the session delta
-  variants/              # planned: deltas for work / thesis projects
+  variants/              # deltas on the core: work (license rules), thesis (planned)
 ```
 
 The `CLAUDE/` folder name marks this as the Claude Code implementation; the
@@ -48,5 +51,6 @@ to other agents (e.g. via `AGENTS.md`) only needs a different thin wrapper.
 
 ## Status
 
-Generic core. Variant deltas (work, thesis) are planned — see
+Generic core, plus the work variant's license rules. Remaining work deltas
+(team conventions) and the thesis variant are planned — see
 `CLAUDE/variants/README.md`.

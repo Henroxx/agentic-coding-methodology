@@ -47,6 +47,7 @@ explanations.
 | File | Read | Content |
 |---|---|---|
 | `CLAUDE.md` | every session, fully | Behavior rules only. No project knowledge. |
+| `CLAUDE.local.md` | every session, fully | Personal rules in shared repos. Gitignored. |
 | `docs/agentcontext/PROJECT.md` | every session, fully | Goal, status, to-dos, open decisions. Short, with references. |
 | `docs/agentcontext/DETAILS.md` | targeted, single sections | One section per concept, with reasoning. May grow long. |
 | `docs/agentcontext/plans/` | when working on that block | Approved plans for larger work blocks. |
@@ -69,6 +70,23 @@ Three variants were considered … B was rejected because …
 
 Reference-instead-of-explanation is the whole trick: PROJECT.md stays small
 enough to always ride along, without losing knowledge.
+
+## Instruction layers
+
+Rules live on three layers, each with a defined audience:
+
+- **`~/.claude/CLAUDE.md`** — the person: communication and working style,
+  valid on this machine in every repo (maintained in this repo under
+  `CLAUDE/global/`).
+- **`CLAUDE.md`** — the repo: committed. In team repos it is a team
+  contract — it enforces only what the team agreed on, plus project facts.
+- **`CLAUDE.local.md`** — the person in this repo: personal collaboration
+  rules that shouldn't bind teammates. Gitignored, read automatically by
+  Claude Code.
+
+In solo projects the split doesn't matter — everything may live in
+CLAUDE.md. The moment a repo is shared, personal rules move to
+CLAUDE.local.md.
 
 ## Staying in control
 

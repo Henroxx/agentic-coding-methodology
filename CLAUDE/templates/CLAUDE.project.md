@@ -63,6 +63,8 @@ Read: this file, `docs/agentcontext/PROJECT.md` as index. In `docs/agentcontext/
 
 ## Code
 
+- Clean, precise, readable — no overkill. Simplicity first, complexity only
+  when justified.
 - Language: {{CODE_LANGUAGE}} for identifiers, comments and docstrings.
 - Comments explain **why**, not what. They address a reader who doesn't know
   the chat history — no discussion artifacts.
@@ -114,3 +116,5 @@ for the next session.
 
 New behavior rules land here by default. Globalize into `~/.claude/CLAUDE.md`
 only once something proved itself across projects.
+
+methodology: {{METHODOLOGY_VERSION}}
