@@ -42,6 +42,9 @@ provided, only ask what is still missing.
   whole setup becomes one commit, so one command removes it.
 - If a `CLAUDE.md` or `docs/agentcontext/` already exists in the repo: don't overwrite.
   Read what's there, propose a merge, ask.
+- CLAUDE.md carries **behavior rules only** — never project knowledge. Beyond
+  the template's slots, nothing about stack, architecture or repo status goes
+  in; such facts belong in PROJECT.md/DETAILS.md.
 
 ## Question protocol
 
@@ -148,7 +151,7 @@ question, you decide yourself.
 | `{{QUESTION_STYLE}}` | you | Sharpen or remove entirely if the base rule suffices. |
 | `{{TESTING_PHILOSOPHY}}` | round 2 · 4 | Concrete: which kind of check, when, recorded how. |
 | `{{CODE_LANGUAGE}}` | round 1 | — |
-| `{{DEPENDENCY_RULES}}` | repo | Name the project's package manager (uv add, pip, npm …). |
+| `{{DEPENDENCY_RULES}}` | repo | Name the project's package manager (uv add, pip, npm …). Tooling behavior only — the tech stack itself is project knowledge and belongs in DETAILS, not in CLAUDE.md. |
 | `{{GIT_PERMISSIONS}}` | round 2 · 3 | Spell out explicitly what is allowed without asking and what isn't. |
 | `{{BACKUP_NOTE}}` | you | If no cloud sync exists: write "git is the only backup". It changes behavior noticeably. |
 | `{{OPTIONAL_DOC_LINES}}` | round 2 · 1 | One line per chosen file, in the style of the existing docs list. |

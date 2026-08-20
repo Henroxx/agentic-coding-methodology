@@ -56,8 +56,9 @@ Read: this file, `docs/agentcontext/PROJECT.md` as index. In `docs/agentcontext/
 - **Watch for skill candidates:** when a procedure repeats across sessions,
   point it out and propose extracting it into a skill. Never create skills
   speculatively.
-- **Context budget:** run `/handoff` at ~150k tokens, and after every finished
-  task — even if there is room left.
+- **Context budget:** at ~150k tokens, and after every finished task,
+  **propose** `/handoff` — even if there is room left. It never runs
+  unprompted; {{NAME}} triggers or approves it.
 - **Keep information current:** remove outdated assumptions from the docs,
   don't leave them standing.
 
@@ -109,8 +110,9 @@ Read: this file, `docs/agentcontext/PROJECT.md` as index. In `docs/agentcontext/
 ## Session end
 
 Before finishing a task and **before every `/compact`** (guideline ~150k
-tokens): `/handoff` — persist the session delta and generate the handoff block
-for the next session.
+tokens): propose `/handoff` and wait for the go — persist the session delta
+and generate the handoff block for the next session. Never run it out of
+nowhere.
 
 ---
 

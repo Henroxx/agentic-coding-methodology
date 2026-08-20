@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: Ends a session cleanly — persists the session delta to PROJECT/DETAILS{{/HISTORY}} and generates a copy-paste handoff block for the next session. Use when the user invokes /handoff, says "end the session" / "hand over", or before a /compact is due (guideline ~150k tokens).
+description: Ends a session cleanly — persists the session delta to PROJECT/DETAILS{{/HISTORY}} and generates a copy-paste handoff block for the next session. Runs ONLY when the user invokes /handoff (or says "end the session" / "hand over") or explicitly approves a proposal to run it — never unprompted. When a task is finished or a /compact is due (guideline ~150k tokens), propose it and wait.
 argument-hint: "What will the next session work on?"
 ---
 
