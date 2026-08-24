@@ -98,7 +98,9 @@ already said.
    docs/agentcontext/PROJECT.md      <- templates/agentcontext/PROJECT.md
    docs/agentcontext/DETAILS.md      <- templates/agentcontext/DETAILS.md
    docs/agentcontext/plans/          (empty directory, tracked via .gitkeep)
+   docs/agentcontext/plans/done/     (empty directory, tracked via .gitkeep)
    .claude/skills/handoff/SKILL.md   <- skills/handoff/SKILL.md
+   .claude/settings.json             (SessionStart hook, see below)
    ```
 
    In the handoff skill, fill `{{HISTORY_LINE}}` / `{{TESTING_LINE}}` only if
@@ -106,6 +108,35 @@ already said.
    line template: "Completed work steps chronologically (date | what | why) →
    `docs/agentcontext/HISTORY.md`." TESTING line template: "New or changed test
    scenarios → `docs/agentcontext/TESTING.md`."
+
+   The hook re-injects the project index after a compaction. Reason: a
+   compacted session does not run "session start" again, so the index would
+   stay as stale as the summary describes it. `SessionStart` is the only hook
+   event whose stdout reaches the model, which is why it is this event and not
+   `PreCompact`.
+
+   ```json
+   {
+     "hooks": {
+       "SessionStart": [
+         {
+           "matcher": "compact",
+           "hooks": [
+             {
+               "type": "command",
+               "command": "f=\"${CLAUDE_PROJECT_DIR}/docs/agentcontext/PROJECT.md\"; [ -f \"$f\" ] && { echo \"Context was just compacted. Project index, re-read from disk:\"; cat \"$f\"; }"
+             }
+           ]
+         }
+       ]
+     }
+   }
+   ```
+
+   If `.claude/settings.json` already exists: **merge**, never overwrite —
+   other hooks and permissions in there are not yours. Mention the hook in the
+   final report; it costs the size of PROJECT.md in tokens on every compaction,
+   which is the price of the index being current instead of hopefully current.
 
 4. **Actually fill PROJECT.md.** No empty skeleton. Write Goal & Scope,
    Status and a first to-do block from round 1 and the repo survey. Where

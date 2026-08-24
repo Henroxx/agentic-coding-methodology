@@ -42,12 +42,29 @@ Read: this file, `agentcontext/PROJECT.md` (index). Into
 
 - **`agentcontext/PROJECT.md`** → index: goal, status, to-dos, open
   decisions. Read fully every session, stays short.
+  **Lifespan:** status and to-dos hold until they change, the decision list is
+  permanent.
 - **`agentcontext/DETAILS.md`** → decisions and repo knowledge as jump
   targets, one section per concept, with as-of date and reasoning.
+  **Lifespan:** current until superseded — an update **replaces** the outdated
+  statement, it is never appended below it.
 - **`agentcontext/plans/`** → approved plans for larger blocks (e.g. a new
-  variant). Deleted when the block is done and folded into DETAILS.
+  variant). Moved to `agentcontext/plans/done/` once the block is done and its
+  learnings are in DETAILS.
+  **Lifespan:** an active plan is block-scoped; `done/` is a graveyard — kept,
+  never updated, never referenced.
 - Note: `agentcontext/` lives at the repo root here — `docs/` is the
   published GitHub Pages site and stays reader-only.
+
+## Compact Instructions
+
+For the summarizer when this conversation gets compacted — additions to what it
+keeps anyway, not a replacement:
+
+- Preserve the current intent: what is being worked on and the next concrete
+  step, so a plain "continue" right after the compact still lands.
+- If a handoff block appeared in the conversation, add anything from it that
+  the summary does not already cover.
 
 ## Session end
 
