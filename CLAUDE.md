@@ -74,4 +74,4 @@ continue in the same chat, or fresh chat with the handoff block.
 
 ---
 
-methodology: fb8010d (2026-08-22)
+methodology: f3d8cef (2026-08-24)
