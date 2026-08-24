@@ -59,8 +59,12 @@ Read: this file, `docs/agentcontext/PROJECT.md` as index. In `docs/agentcontext/
 - **Context budget:** at ~150k tokens, and after every finished task,
   **propose** `/handoff` — even if there is room left. It never runs
   unprompted; {{NAME}} triggers or approves it.
-- **Keep information current:** remove outdated assumptions from the docs,
-  don't leave them standing.
+- **Keep information current:** an update to `DETAILS.md` **replaces** the
+  outdated statement, it is not appended below it. Outdated assumptions are
+  removed, not annotated.
+- **Don't duplicate facts:** before writing something down, check whether it
+  already lives somewhere with a longer lifespan — if so, reference it there.
+  The same fact in four files is four places to find on the next change.
 
 ## Code
 
@@ -92,11 +96,16 @@ Read: this file, `docs/agentcontext/PROJECT.md` as index. In `docs/agentcontext/
   status, no architecture, no commands.
 - **`docs/agentcontext/PROJECT.md`** → state and index: goal, status, to-dos, open
   decisions, references to DETAILS sections. Clear and short.
+  **Lifespan:** status and to-dos hold only until they change; the decision
+  list is permanent.
 - **`docs/agentcontext/DETAILS.md`** → detail knowledge as jump targets, one section per
   concept, with an as-of date. When a change touches a section: verify against
   the code and update it.
+  **Lifespan:** current until superseded — updates replace, never append.
 - **`docs/agentcontext/plans/`** → approved plans for larger work blocks. Delete or
   archive a plan once its block is done and its learnings are in DETAILS.
+  **Lifespan:** block-scoped — the plan dies with its block, and so does the
+  progress noted in it.
 - **Growth path:** when a DETAILS section outgrows targeted reading, propose
   extracting it to `docs/agentcontext/details/<concept>.md` and leave only the
   reference — PROJECT.md stays the single index either way.
@@ -106,6 +115,16 @@ Read: this file, `docs/agentcontext/PROJECT.md` as index. In `docs/agentcontext/
   neither PROJECT nor DETAILS — then marked at the top as `> **TEMPORARY.**`
   with the event after which the file gets deleted. Drafts for mails or texts
   belong in the chat, not in `docs/agentcontext/`.
+
+## Compact Instructions
+
+For the summarizer when this conversation gets compacted — additions to what it
+keeps anyway, not a replacement:
+
+- Preserve the current intent: what is being worked on and the next concrete
+  step, so a plain "continue" right after the compact still lands.
+- If a handoff block appeared in the conversation, add anything from it that
+  the summary does not already cover.
 
 ## Session end
 

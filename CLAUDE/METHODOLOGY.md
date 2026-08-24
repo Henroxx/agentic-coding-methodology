@@ -108,6 +108,14 @@ files are named differently.
   how to work, never what the project is — no stack, no architecture, no
   status. Knowledge lives in PROJECT/DETAILS. Mixing the two makes both
   unreliable: rules drown in facts, facts go stale in a file nobody updates.
+- **Every file has a lifespan.** Decide it per file, not per sentence: a file
+  holds either permanent content (decisions with their reasons),
+  current-until-superseded content (state and knowledge — updates *replace*,
+  they never append), or block-scoped content (plans and progress, deleted when
+  the block closes). Nobody maintains a "valid until" tag on every line. A
+  lifespan per file makes misplaced content visible instead — a debugging story
+  in a current-truth file is wrong by location, which you can see, rather than
+  by judgment, which you have to make sentence by sentence.
 - **Context is the scarce resource, not compute.** Defined load behavior per
   file; what always loads stays small.
 - **The goal is a seamless restart.** The measure for every documentation
@@ -128,12 +136,23 @@ files are named differently.
   main window runs in a subagent; only the condensed result comes back.
 - **Extract skills from repetition.** When a procedure repeats across
   sessions, it becomes a skill — never speculatively, always after it proved
-  itself.
+  itself. Keep the most important instructions at the top of a `SKILL.md`:
+  after a compaction, invoked skill bodies are re-injected but truncated, and
+  truncation keeps the beginning.
 - **No document creep.** New files in `docs/agentcontext/` only when the content truly
   fits nowhere — then marked `> **TEMPORARY.**` with the condition for
   deleting it.
-- **Living documents.** Outdated assumptions are actively removed, not
-  annotated. Documentation you can't trust is worse than none.
+- **Deletion needs a moment, not good intentions.** Outdated assumptions are
+  removed, not annotated — documentation you can't trust is worse than none.
+  But generation is additive: an agent that writes on every turn grows every
+  file, and an ambient "keep it short" loses to that bias every time. So
+  removal is bound to an event — the close of a work block — and checked there
+  like any other step.
+- **Enforcement belongs where the bias is.** A rule that only sits in
+  CLAUDE.md competes with the model's own tendencies. The few rules that
+  reliably lose that fight — deleting, keeping the grain small — are anchored
+  in a skill that runs at a defined moment. Deliberately not every rule: a
+  ritual that grows into a forty-point audit gets skipped or rubber-stamped.
 - **Global only after it proved itself.** New rules land in the project
   CLAUDE.md. Only what carried across several projects moves to
   `~/.claude/CLAUDE.md`.
@@ -156,5 +175,12 @@ unreliable. Two growth paths, and they complement each other:
   tiny: local behavior rules plus pointers into `details/`, never knowledge
   dumps — otherwise there are two competing places for knowledge.
 
-The reference principle stays identical in both — only the loading becomes
-mechanical instead of disciplined.
+- **Rituals scale by decoupling from the session.** While one chat does one
+  work block, the block ends when the session ends and `/handoff` is the only
+  cleanup moment needed. Once several chats work one repo in parallel, blocks
+  close mid-session and the global index has no owner — then block close
+  becomes its own checklist, and one chat is explicitly responsible for the
+  index.
+
+The reference principle stays identical in all of them — only the loading
+becomes mechanical instead of disciplined.
