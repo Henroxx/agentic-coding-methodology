@@ -98,6 +98,7 @@ already said.
    docs/agentcontext/PROJECT.md      <- templates/agentcontext/PROJECT.md
    docs/agentcontext/DETAILS.md      <- templates/agentcontext/DETAILS.md
    docs/agentcontext/plans/          (empty directory, tracked via .gitkeep)
+   docs/agentcontext/plans/done/     (empty directory, tracked via .gitkeep)
    .claude/skills/handoff/SKILL.md   <- skills/handoff/SKILL.md
    .claude/settings.json             (SessionStart hook, see below)
    ```

@@ -16,11 +16,12 @@ Go through the current session and collect what was decided, learned or
 changed but is not persisted anywhere yet. Mapping:
 
 - Decisions (architecture, methodology, deliberate deviations) →
-  `docs/agentcontext/DETAILS.md`, matching section, 1–3 sentences **with reasoning**
+  `docs/agentcontext/DETAILS.md`, matching section, a few sentences **with reasoning**
 - Status changes, finished and new to-dos, resolved open questions →
   `docs/agentcontext/PROJECT.md`
 - Progress against an active plan → update `docs/agentcontext/plans/<topic>.md`;
-  if the block is done, fold its learnings into DETAILS and delete the plan
+  if the block is done, fold its learnings into DETAILS and move the plan to
+  `docs/agentcontext/plans/done/`
 {{HISTORY_LINE}}
 {{TESTING_LINE}}
 - New behavior rules for the collaboration → `CLAUDE.md`
@@ -41,9 +42,10 @@ persist: say so explicitly.
 ## Step 3 — Collect the garbage
 
 Writing is the easy half. Deletion only happens if it happens here, so run
-these four checks — briefly, not as an audit:
+these checks — briefly, not as an audit:
 
-- **Finished plans:** learnings folded into DETAILS, then the plan file deleted.
+- **Finished plans:** learnings folded into DETAILS, then the plan moved to
+  `plans/done/`. The move follows the fold, it never replaces it.
 - **Block-scoped leftovers:** progress notes, sanity-check records, and
   `> **TEMPORARY.**` blocks whose condition is met — deleted.
 - **Appends that should have been replacements:** did a DETAILS update replace
@@ -52,29 +54,36 @@ these four checks — briefly, not as an audit:
   longer lifespan, reference it from the others.
 
 If this project keeps a history log: the new entry is at most 3 lines and does
-not repeat what DETAILS already holds.
+not repeat what DETAILS already holds. Finding nothing to clean up is a valid
+outcome — say so in one line instead of inventing work.
 
-## Step 4 — Handoff block (for a fresh chat)
+## Step 4 — Handoff block
 
-The block exists for **starting a new session**. If the plan is to `/compact`
-and continue in this chat instead, say so and skip it — there, the files carry
-the state and the `## Compact Instructions` in CLAUDE.md carry the intent.
+Always output the block, whether the next step is a fresh chat or a `/compact`
+in this one: a new session needs it as its seed, and a compaction produces a
+better summary with it than without.
 
-Output a Markdown code block in the chat, copy-paste-ready as the first
-message of the next session. Content:
+Introduce it with one sentence for the user — that the text below is meant as
+the first message of a new chat, and can be ignored when continuing here.
+
+Then a Markdown code block, copy-paste-ready. Include **only the parts that
+apply**:
 
 - **Task** — what the next session works on (from the argument; without an
   argument, derive it from the to-dos and mark it as a suggestion)
 - **State** — branch, last commit, what works, what is open
 - **Reading pointers** — references only (e.g. "DETAILS.md → section
   Sessionization"), never duplicate content that already lives in files
-- **Session patterns** — 3–5 working patterns from this session that are not
+- **Session patterns** — working patterns from this session that are not
   file-worthy but will make the next session faster. Anything that will matter
-  again belongs in DETAILS instead; here only what holds for the next session.
+  again belongs in DETAILS instead. Nothing non-obvious to report? Leave the
+  section out — never invent one to fill a slot.
 - **First action** — the concrete first step or first question
 
 Rules for the block:
 
 - Readable standalone, without this chat history
 - No secrets, API keys or sensitive data
-- Keep it short: ~30–50 lines
+- At most ~50 lines, and **shorter is better.** A block that says little more
+  than "read these two files, then do X" is the good case: it means the files
+  are carrying the state. Don't pad it.

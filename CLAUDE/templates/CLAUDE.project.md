@@ -102,10 +102,13 @@ Read: this file, `docs/agentcontext/PROJECT.md` as index. In `docs/agentcontext/
   concept, with an as-of date. When a change touches a section: verify against
   the code and update it.
   **Lifespan:** current until superseded — updates replace, never append.
-- **`docs/agentcontext/plans/`** → approved plans for larger work blocks. Delete or
-  archive a plan once its block is done and its learnings are in DETAILS.
-  **Lifespan:** block-scoped — the plan dies with its block, and so does the
-  progress noted in it.
+- **`docs/agentcontext/plans/`** → approved plans for larger work blocks. Once a
+  block is done and its learnings are in DETAILS, the plan moves to
+  `docs/agentcontext/plans/done/`.
+  **Lifespan:** an active plan is block-scoped — its progress notes stop being
+  authoritative at block close. `done/` is a graveyard: kept, never updated,
+  never referenced. Moving a plan there does not replace folding its learnings
+  into DETAILS, it follows it.
 - **Growth path:** when a DETAILS section outgrows targeted reading, propose
   extracting it to `docs/agentcontext/details/<concept>.md` and leave only the
   reference — PROJECT.md stays the single index either way.

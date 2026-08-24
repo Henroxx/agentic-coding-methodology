@@ -51,7 +51,7 @@ explanations.
 | `CLAUDE.local.md` | every session, fully | Personal rules in shared repos. Gitignored. |
 | `docs/agentcontext/PROJECT.md` | every session, fully | Goal, status, to-dos, open decisions. Short, with references. |
 | `docs/agentcontext/DETAILS.md` | targeted, single sections | One section per concept, with reasoning. May grow long. |
-| `docs/agentcontext/plans/` | when working on that block | Approved plans for larger work blocks. |
+| `docs/agentcontext/plans/` | when working on that block | Approved plans for larger work blocks. Moved to `plans/done/` at block close. |
 | `docs/agentcontext/HISTORY.md` | only when writing | Date, what, why. Optional. |
 | `docs/agentcontext/TESTING.md` | on changes | What must work, as a checkable list. Optional. |
 
@@ -111,8 +111,8 @@ files are named differently.
 - **Every file has a lifespan.** Decide it per file, not per sentence: a file
   holds either permanent content (decisions with their reasons),
   current-until-superseded content (state and knowledge — updates *replace*,
-  they never append), or block-scoped content (plans and progress, deleted when
-  the block closes). Nobody maintains a "valid until" tag on every line. A
+  they never append), or block-scoped content (an active plan and its
+  progress, which stops being authoritative when the block closes). Nobody maintains a "valid until" tag on every line. A
   lifespan per file makes misplaced content visible instead — a debugging story
   in a current-truth file is wrong by location, which you can see, rather than
   by judgment, which you have to make sentence by sentence.
@@ -139,6 +139,11 @@ files are named differently.
   itself. Keep the most important instructions at the top of a `SKILL.md`:
   after a compaction, invoked skill bodies are re-injected but truncated, and
   truncation keeps the beginning.
+- **An archive is a graveyard, not a second knowledge base.** Finished plans
+  are kept — an unread file costs nothing — but nothing gets updated there and
+  nothing references it. The condition for archiving is that the learnings are
+  already in DETAILS: otherwise the archive becomes an excuse to skip that
+  step, and then there are two competing places for knowledge.
 - **No document creep.** New files in `docs/agentcontext/` only when the content truly
   fits nowhere — then marked `> **TEMPORARY.**` with the condition for
   deleting it.

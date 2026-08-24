@@ -49,8 +49,10 @@ Read: this file, `agentcontext/PROJECT.md` (index). Into
   **Lifespan:** current until superseded — an update **replaces** the outdated
   statement, it is never appended below it.
 - **`agentcontext/plans/`** → approved plans for larger blocks (e.g. a new
-  variant). Deleted when the block is done and folded into DETAILS.
-  **Lifespan:** block-scoped.
+  variant). Moved to `agentcontext/plans/done/` once the block is done and its
+  learnings are in DETAILS.
+  **Lifespan:** an active plan is block-scoped; `done/` is a graveyard — kept,
+  never updated, never referenced.
 - Note: `agentcontext/` lives at the repo root here — `docs/` is the
   published GitHub Pages site and stays reader-only.
 
