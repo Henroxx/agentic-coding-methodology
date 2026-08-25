@@ -45,6 +45,12 @@ Every file has a defined load behavior: always, targeted, or on demand.
 Whatever loads always stays small — index files hold references, not
 explanations.
 
+> The file names below use the Claude Code harness as the running example
+> (`CLAUDE.md`, `~/.claude/`, per-module `CLAUDE.md`). The tool-neutral
+> contract is `AGENTS.md`; each harness maps the rest — with Cursor the
+> equivalents are `AGENTS.md`, `~/.cursor/rules/` and `.cursor/rules/<area>.mdc`
+> with globs. See `harnesses/` in the methodology repo.
+
 | File | Read | Content |
 |---|---|---|
 | `CLAUDE.md` | every session, fully | Behavior rules only. No project knowledge. |
@@ -78,7 +84,7 @@ Rules live on three layers, each with a defined audience:
 
 - **`~/.claude/CLAUDE.md`** — the person: communication and working style,
   valid on this machine in every repo (maintained in this repo under
-  `CLAUDE/global/`).
+  `global/`).
 - **`CLAUDE.md`** — the repo: committed. In team repos it is a team
   contract — it enforces only what the team agreed on, plus project facts.
 - **`CLAUDE.local.md`** — the person in this repo: personal collaboration

@@ -319,7 +319,8 @@ B was rejected because &hellip;</code></pre>
 
 <p>Reference-instead-of-explanation is the whole trick: PROJECT.md stays small enough to always ride
 along, without losing knowledge. And because everything is plain Markdown, the structure is
-tool-agnostic — only the thin <code>CLAUDE.md</code> wrapper is Claude-specific.</p>
+tool-agnostic. <code>AGENTS.md</code> is the behavior contract; a thin <code>CLAUDE.md</code>
+pointer is only needed for Claude Code.</p>
 
 <h2 id="layers">Instruction layers</h2>
 <p>Rules live on four layers, each with a defined audience. The committed project file is a
@@ -328,7 +329,7 @@ leak into it.</p>
 
 <div class="layers">
   <div class="layer">
-    <span class="path">repo: CLAUDE/global/CLAUDE.md</span>
+    <span class="path">repo: global/AGENTS.md</span>
     <span class="who">the person — public, versioned</span>
     <span class="what">Communication and working style, valid in every repo. Imported by the local file below.</span>
   </div>
@@ -338,7 +339,7 @@ leak into it.</p>
     <span class="what">A small local file: one <code>@import</code> of the public part, plus machine-private facts below it that never get committed.</span>
   </div>
   <div class="layer">
-    <span class="path">&lt;repo&gt;/CLAUDE.md</span>
+    <span class="path">&lt;repo&gt;/AGENTS.md</span>
     <span class="who">the team — committed</span>
     <span class="what">The collaboration contract for this repo: workflow, code and git rules, docs layout. Ends with a <code>methodology:</code> version stamp.</span>
   </div>
@@ -420,15 +421,21 @@ differently:</p>
   <p class="principle"><b>Extract skills from repetition.</b> A procedure that repeats across sessions becomes a skill — never speculatively.</p>
   <p class="principle"><b>No document creep.</b> New files only when content truly fits nowhere — then marked <code>TEMPORARY</code> with a deletion condition.</p>
   <p class="principle"><b>Living documents.</b> Outdated assumptions are removed, not annotated. Documentation you can't trust is worse than none.</p>
-  <p class="principle"><b>Global only after it proved itself.</b> New rules land in the project CLAUDE.md; only what carried across several projects moves up a layer.</p>
+  <p class="principle"><b>Global only after it proved itself.</b> New rules land in the project AGENTS.md; only what carried across several projects moves up a layer.</p>
 </div>
 
 <h2 id="adopt">Adopting it</h2>
 <p>Everything is plain Markdown and a few hundred lines — take what fits, change what doesn't. The
 files are living documents, including the ones containing the rules.</p>
 <pre><code># make the skills available globally (adjust the clone path)
-ln -s &lt;clone&gt;/CLAUDE/skills/setup-project ~/.claude/skills/setup-project
-ln -s &lt;clone&gt;/CLAUDE/skills/update-project ~/.claude/skills/update-project
+
+# Cursor
+ln -s &lt;clone&gt;/skills/setup-project  ~/.cursor/skills/setup-project
+ln -s &lt;clone&gt;/skills/update-project ~/.cursor/skills/update-project
+
+# Claude Code
+ln -s &lt;clone&gt;/skills/setup-project  ~/.claude/skills/setup-project
+ln -s &lt;clone&gt;/skills/update-project ~/.claude/skills/update-project
 
 # then, in any project:
 /setup-project</code></pre>

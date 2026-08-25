@@ -1,0 +1,14 @@
+---
+description: Global agentic-coding preferences (versioned in the methodology repo)
+alwaysApply: true
+---
+
+Read and follow the versioned file:
+
+`~/dev/private_repos/agentic-coding-methodology/global/AGENTS.md`
+
+(If `AGENTIC_METHODOLOGY_ROOT` is set, use that path instead.)
+
+## Machine (private — never committed anywhere)
+
+- facts about this machine that don't belong in a public repo

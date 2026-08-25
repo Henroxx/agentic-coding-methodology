@@ -12,60 +12,78 @@ continues where the last one stopped. Forgetting is fine; losing the *why* is no
 **The full explanation, with diagrams:**
 [henroxx.github.io/agentic-coding-methodology](https://henroxx.github.io/agentic-coding-methodology/)
 
+## Harnesses
+
+`AGENTS.md` is the tool-agnostic contract and `docs/agentcontext/` is plain
+Markdown — the methodology itself doesn't care which agent runs it. A harness
+is only the wiring that makes a given tool load those files: Cursor reads
+`AGENTS.md` directly; Claude Code gets a thin `CLAUDE.md` pointer plus a
+SessionStart hook so nothing is written twice. `/setup-project` asks which
+harness to wire — there is no default. See `harnesses/`: one small file per
+harness, and adding another (e.g. codex) is one more.
+
 ## Quick start
 
-1. Make the skills available globally (once):
+1. Make the skills available globally (once), for your harness.
+
+   Cursor:
 
    ```bash
-   ln -s ~/dev/private_repos/agentic-coding-methodology/CLAUDE/skills/setup-project \
-         ~/.claude/skills/setup-project
-   ln -s ~/dev/private_repos/agentic-coding-methodology/CLAUDE/skills/update-project \
-         ~/.claude/skills/update-project
+   ln -s <clone>/skills/setup-project  ~/.cursor/skills/setup-project
+   ln -s <clone>/skills/update-project ~/.cursor/skills/update-project
    ```
 
-   And wire up the global preferences: `~/.claude/CLAUDE.md` stays a normal
-   private file that imports the versioned part and holds machine-private
-   facts below it:
+   Claude Code:
 
-   ```markdown
-   @~/dev/private_repos/agentic-coding-methodology/CLAUDE/global/CLAUDE.md
-
-   ## Machine (private — never committed anywhere)
-   - facts about this machine that don't belong in a public repo
+   ```bash
+   ln -s <clone>/skills/setup-project  ~/.claude/skills/setup-project
+   ln -s <clone>/skills/update-project ~/.claude/skills/update-project
    ```
 
-2. In any new project, start Claude Code and run:
+   Then wire the global preferences. Both harnesses point at the same
+   versioned `global/AGENTS.md` and keep machine-private facts below the
+   import — Cursor via `~/.cursor/rules/agentic-coding.mdc` (template:
+   `global/cursor.rule.mdc`), Claude Code via an `@`-import in
+   `~/.claude/CLAUDE.md`.
+
+2. In any new project, run:
 
    ```
    /setup-project
    ```
 
-   The skill asks two short question rounds, then scaffolds `CLAUDE.md`,
-   `docs/agentcontext/`, and the `/handoff` skill from the templates in this
-   repo — as a single revertible commit.
+   It asks which harness to wire (cursor / claude / both) plus two short
+   question rounds, then scaffolds `AGENTS.md`, `docs/agentcontext/`, and the
+   `/handoff` skill from the templates in this repo — as a single revertible
+   commit.
 
 ## Layout
 
 ```
-CLAUDE/                  # implementation for Claude Code
-  METHODOLOGY.md         # the concept: workflow, file roles, principles
-  global/CLAUDE.md       # my user-level preferences (~/.claude/CLAUDE.md)
-  templates/             # source of truth for scaffolded files
-    CLAUDE.project.md    # project-level CLAUDE.md template
-    agentcontext/        # PROJECT, DETAILS, HISTORY, TESTING templates
-  skills/
-    setup-project/       # scaffolds the methodology into a repo
-    update-project/      # pulls methodology updates into a scaffolded repo
-    handoff/             # ends a session cleanly, persists the session delta
-  variants/              # deltas on the core: work (license rules), thesis (planned)
+AGENTS.md                # this repo's own working rules
+METHODOLOGY.md           # the concept: workflow, file roles, principles
+global/                  # user-level preferences
+  AGENTS.md              # versioned prefs
+  cursor.rule.mdc        # alwaysApply wrapper for ~/.cursor/rules/
+templates/               # source of truth for scaffolded files
+  AGENTS.project.md      # project-level AGENTS.md template
+  agentcontext/          # PROJECT, DETAILS, HISTORY, TESTING templates
+skills/
+  setup-project/         # scaffolds the methodology into a repo
+  update-project/        # pulls methodology updates into a scaffolded repo
+  handoff/               # ends a session cleanly, persists the session delta
+harnesses/               # per-tool wiring (contract file, skills, local rules)
+  README.md              # the harness contract + mapping table
+  cursor.md              # Cursor wiring
+  claude.md              # Claude Code wiring
+variants/                # deltas on the core: work (license rules), thesis (planned)
 ```
 
-The `CLAUDE/` folder name marks this as the Claude Code implementation; the
-`docs/agentcontext/` file structure itself is plain Markdown and tool-agnostic. Porting
-to other agents (e.g. via `AGENTS.md`) only needs a different thin wrapper.
+The `docs/agentcontext/` file structure is plain Markdown and tool-agnostic;
+only the thin harness wrapper differs per tool.
 
 ## Status
 
-Generic core, plus the work variant's license rules. Remaining work deltas
-(team conventions) and the thesis variant are planned — see
-`CLAUDE/variants/README.md`.
+Generic, harness-neutral core (Cursor and Claude Code), plus the work variant's
+license rules. Remaining work deltas (team conventions) and the thesis variant
+are planned — see `variants/README.md`.

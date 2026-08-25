@@ -20,15 +20,15 @@ My name is Henry.
 - I value interpretability and control — make your reasoning visible,
   don't do things silently.
 - New projects: before any coding starts, set up the working methodology
-  (`/setup-project`) — the project CLAUDE.md carries all code, git and
+  (`/setup-project`) — the project `AGENTS.md` carries all code, git and
   dependency rules.
 
 ## Machine
 
-Machine-wide facts about my computer. If you adopt this file for yourself,
-replace or remove these — and note the pattern: your local
-`~/.claude/CLAUDE.md` imports this file via `@` and can hold additional
-machine facts below the import that never get committed.
+Machine-wide facts about this computer. If you adopt this file, replace or
+remove these — and note the pattern: your harness loads this file (Claude
+Code via a `~/.claude/CLAUDE.md` `@`-import, Cursor via
+`~/.cursor/rules/agentic-coding.mdc`; see `harnesses/`) and can hold
+additional machine facts below that never get committed.
 
-- Docker runs via Colima, not Docker Desktop.
-- Homebrew is a user-level install at `~/homebrew`.
+- facts about this machine that don't belong in a public repo
