@@ -41,10 +41,10 @@ harness, and adding another (e.g. codex) is one more.
    ```
 
    Then wire the global preferences. Both harnesses point at the same
-   versioned `global/AGENTS.md` and keep machine-private facts below the
-   import — Cursor via `~/.cursor/rules/agentic-coding.mdc` (template:
-   `global/cursor.rule.mdc`), Claude Code via an `@`-import in
-   `~/.claude/CLAUDE.md`.
+   versioned `global/AGENTS.md` — a shared, generic baseline — and keep your
+   name and machine-private facts below the import — Cursor via
+   `~/.cursor/rules/agentic-coding.mdc` (template: `global/cursor.rule.mdc`),
+   Claude Code via an `@`-import in `~/.claude/CLAUDE.md`.
 
 2. In any new project, run:
 
@@ -63,7 +63,7 @@ harness, and adding another (e.g. codex) is one more.
 AGENTS.md                # this repo's own working rules
 METHODOLOGY.md           # the concept: workflow, file roles, principles
 global/                  # user-level preferences
-  AGENTS.md              # versioned prefs
+  AGENTS.md              # shared, generic baseline (name/machine facts stay local)
   cursor.rule.mdc        # alwaysApply wrapper for ~/.cursor/rules/
 templates/               # source of truth for scaffolded files
   AGENTS.project.md      # project-level AGENTS.md template

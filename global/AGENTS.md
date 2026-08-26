@@ -1,6 +1,9 @@
-# Global — Henry's preferences
+# Global preferences (starter baseline)
 
-My name is Henry.
+Shared, generic baseline for working with coding agents. Adopt it as-is or
+edit to taste. Anything personal — your name, machine facts, private tweaks —
+lives in the local harness wrapper below the import (see `## Personal &
+machine facts`), never in this versioned file.
 
 ## Communication
 
@@ -23,12 +26,13 @@ My name is Henry.
   (`/setup-project`) — the project `AGENTS.md` carries all code, git and
   dependency rules.
 
-## Machine
+## Personal & machine facts
 
-Machine-wide facts about this computer. If you adopt this file, replace or
-remove these — and note the pattern: your harness loads this file (Claude
-Code via a `~/.claude/CLAUDE.md` `@`-import, Cursor via
-`~/.cursor/rules/agentic-coding.mdc`; see `harnesses/`) and can hold
-additional machine facts below that never get committed.
+Personal, machine-specific facts do **not** go here — this file is versioned
+and shared. Your harness loads it (Claude Code via a `~/.claude/CLAUDE.md`
+`@`-import, Cursor via `~/.cursor/rules/agentic-coding.mdc`; see `harnesses/`)
+and holds your name and machine facts below the import, where they never get
+committed. Examples of what belongs there:
 
-- facts about this machine that don't belong in a public repo
+- your name, so the agent can address you
+- OS, package manager, tool paths, and other machine-wide facts

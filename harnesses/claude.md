@@ -53,8 +53,8 @@ skill/hook paths.
 <methodology-root>/skills/update-project →  ~/.claude/skills/update-project
 ```
 
-`~/.claude/CLAUDE.md` may `@`-import `global/AGENTS.md` and keep
-machine-private facts below.
+`~/.claude/CLAUDE.md` may `@`-import `global/AGENTS.md` and keep your name
+and machine-private facts below the import.
 
 ## Module rules
 

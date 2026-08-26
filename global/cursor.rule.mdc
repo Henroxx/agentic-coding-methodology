@@ -9,6 +9,7 @@ Read and follow the versioned file:
 
 (If `AGENTIC_METHODOLOGY_ROOT` is set, use that path instead.)
 
-## Machine (private — never committed anywhere)
+## Personal (private — never committed anywhere)
 
+- My name is `<your name>`.
 - facts about this machine that don't belong in a public repo
