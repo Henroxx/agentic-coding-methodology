@@ -19,6 +19,10 @@ My name is Henry.
   me structure it — but ask before committing.
 - I value interpretability and control — make your reasoning visible,
   don't do things silently.
+- Git: stage by path — never `git add -A`, `git add .` or `git commit -a`.
+  I often run several chats in one working tree; a broad add silently sweeps
+  another chat's files into a commit whose message then lies about them.
+  Read `git status` before committing and leave foreign changes alone.
 - New projects: before any coding starts, set up the working methodology
   (`/setup-project`) — the project CLAUDE.md carries all code, git and
   dependency rules.
