@@ -1,6 +1,7 @@
 ---
 name: handoff
-description: Ends a session cleanly — persists the session delta to PROJECT/DETAILS{{/HISTORY}}, removes what the finished work block leaves behind, and generates a copy-paste handoff block for the next session. Runs ONLY when the user invokes /handoff (or says "end the session" / "hand over") or explicitly approves a proposal to run it — never unprompted. When a task is finished or a /compact is due (guideline ~150k tokens), propose it and wait.
+description: Ends a session cleanly — persists the session delta to PROJECT/DETAILS{{/HISTORY}}, removes what the finished work block leaves behind, and generates a copy-paste handoff block for the next session. Runs ONLY when the user invokes /handoff (or says "end the session" / "hand over") or explicitly approves a proposal to run it — never unprompted. When a task is finished or a compact is due (guideline ~150k tokens), propose it and wait.
+disable-model-invocation: true
 argument-hint: "What will the next session work on?"
 ---
 
@@ -24,7 +25,7 @@ changed but is not persisted anywhere yet. Mapping:
   `docs/agentcontext/plans/done/`
 {{HISTORY_LINE}}
 {{TESTING_LINE}}
-- New behavior rules for the collaboration → `CLAUDE.md`
+- New behavior rules for the collaboration → `AGENTS.md`
 
 Only the **delta of this session** — no full audit of all files.
 
@@ -59,7 +60,7 @@ outcome — say so in one line instead of inventing work.
 
 ## Step 4 — Handoff block
 
-Always output the block, whether the next step is a fresh chat or a `/compact`
+Always output the block, whether the next step is a fresh chat or a compact
 in this one: a new session needs it as its seed, and a compaction produces a
 better summary with it than without.
 
