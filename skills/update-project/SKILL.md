@@ -7,11 +7,22 @@ argument-hint: "optional: what to focus the update on"
 
 # Update the methodology in this repo
 
+If this working tree *is* the methodology repo (`templates/AGENTS.project.md`
+and `harnesses/upstream.md` exist): stop. This skill is for scaffolded
+consumer repos only. For Henroxx / upstream updates here, use
+`/sync-upstream`.
+
 Resolve **methodology root** (first match):
 
 1. Environment variable `AGENTIC_METHODOLOGY_ROOT`
-2. `~/dev/private_repos/agentic-coding-methodology`
+2. The resolved target of this installed skill's symlink/junction: from
+   `skills/update-project/SKILL.md`, go up three levels and verify that the
+   result contains `templates/AGENTS.project.md`
 3. The current repo, if it contains `templates/AGENTS.project.md`
+
+If the skill was copied rather than linked and none match, stop and ask the
+user to set `AGENTIC_METHODOLOGY_ROOT` to their clone. Never guess a
+machine-specific path.
 
 Goal: bring this repo's scaffold (`AGENTS.md`, `docs/agentcontext/`,
 harness skill copies) up to date with the methodology — **without ever

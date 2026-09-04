@@ -28,6 +28,9 @@ Read: this file, `agentcontext/PROJECT.md` (index). Into
   changes scaffolded repos.** Wording is behavior. Consider what
   `/update-project` will propose downstream, and whether the change is generic,
   harness-specific, or belongs in a variant.
+- **`CLAUDE/` is Henroxx's tree, read-only.** Do not edit it. Pulls go
+  through `/sync-upstream` (map in `harnesses/upstream.md`). Never merge
+  Henroxx's upstream `main` onto this branch.
 - **Behavior in AGENTS.md, knowledge in context files** — the split governs
   this repo's own files too.
 - **Rules always carry their reason** — here of all places.
@@ -69,12 +72,15 @@ keeps anyway, not a replacement:
   step, so a plain "continue" right after the compact still lands.
 - If a handoff block appeared in the conversation, add anything from it that
   the summary does not already cover.
+- After compact, re-read `agentcontext/PROJECT.md` from disk. The summary
+  is not the index.
 
 ## Session end
 
 After every finished task, and at ~150k tokens at the latest, **propose**
-`/handoff` — it never runs unprompted. After the handoff: `/compact` and
-continue in the same chat, or fresh chat with the handoff block.
+`/handoff` — it never runs unprompted. After the handoff: fresh chat, paste
+the block. Do not compact this chat to continue. Mid-task auto-summarize:
+`/context-compact`.
 
 ---
 

@@ -28,3 +28,6 @@ Module-specific behavior:
 Adding a harness (e.g. codex): drop one `<name>.md` here that names its
 contract file, its skills path and its local-rules path, then teach
 `/setup-project` to offer it. One small file per harness, nothing more.
+
+Henroxx's Claude-only tree is vendored under `CLAUDE/` at the repo root.
+How to pull his updates without clobbering this fork: `upstream.md`.

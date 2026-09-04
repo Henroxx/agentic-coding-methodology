@@ -1,7 +1,6 @@
 ---
 name: handoff
-description: Ends a session cleanly — persists the session delta to PROJECT/DETAILS{{/HISTORY}}, removes what the finished work block leaves behind, and generates a copy-paste handoff block for the next session. Runs ONLY when the user invokes /handoff (or says "end the session" / "hand over") or explicitly approves a proposal to run it — never unprompted. When a task is finished or a compact is due (guideline ~150k tokens), propose it and wait. After the block: new chat, paste it — do not run /context-compact and do not compact this chat.
-disable-model-invocation: true
+description: Ends a session cleanly — persists the session delta to PROJECT/DETAILS{{/HISTORY}}, removes what the finished work block leaves behind, and generates a copy-paste handoff block for the next session. Runs ONLY when the user invokes /handoff (or says "end the session" / "hand over") or explicitly approves a proposal to run it — never unprompted. When a task is finished or a /compact is due (guideline ~150k tokens), propose it and wait.
 argument-hint: "What will the next session work on?"
 ---
 
@@ -25,7 +24,7 @@ changed but is not persisted anywhere yet. Mapping:
   `docs/agentcontext/plans/done/`
 {{HISTORY_LINE}}
 {{TESTING_LINE}}
-- New behavior rules for the collaboration → `AGENTS.md`
+- New behavior rules for the collaboration → `CLAUDE.md`
 
 Only the **delta of this session** — no full audit of all files.
 
@@ -60,13 +59,12 @@ outcome — say so in one line instead of inventing work.
 
 ## Step 4 — Handoff block
 
-Always output the block. The next step is a **fresh chat** — paste this
-as the first message. Do not run `/context-compact`. Do not tell the user
-to `/summarize` or `/compact` this chat; after handoff the old transcript
-is leftover.
+Always output the block, whether the next step is a fresh chat or a `/compact`
+in this one: a new session needs it as its seed, and a compaction produces a
+better summary with it than without.
 
-Introduce it with one sentence: the text below is the first message of a
-new chat.
+Introduce it with one sentence for the user — that the text below is meant as
+the first message of a new chat, and can be ignored when continuing here.
 
 Then a Markdown code block, copy-paste-ready. Include **only the parts that
 apply**:
@@ -89,5 +87,3 @@ Rules for the block:
 - At most ~50 lines, and **shorter is better.** A block that says little more
   than "read these two files, then do X" is the good case: it means the files
   are carrying the state. Don't pad it.
-
-Close with one line: new chat, paste the block. Then stop.

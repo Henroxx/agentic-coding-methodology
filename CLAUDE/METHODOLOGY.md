@@ -20,7 +20,8 @@ One task, one cycle. At the end, the knowledge is in files instead of the chat:
 ```
 Plan → your OK → Task (persist decisions the moment they fall)
    → /handoff
-   → fresh chat, paste the handoff block
+      → /compact and continue in the same chat, or
+      → fresh chat, paste the handoff block
    → next task
 ```
 
@@ -33,25 +34,16 @@ Plan → your OK → Task (persist decisions the moment they fall)
 - **/handoff.** After every finished task, at latest around ~150k tokens.
   Collects what only lived in the chat, writes it to `docs/agentcontext/`, and outputs a
   short block for the next session. The agent proposes it, the human triggers
-  it — it never runs unprompted. Do this *before* any compact: the delta
-  check needs the uncompacted session.
-- **Continue.** New chat, paste the block. After handoff the old chat is
-  leftover — compacting it adds nothing. Claude Code may still `/compact`
-  and stay (that harness re-injects `PROJECT.md` on compact); Cursor has
-  no such hook. If Cursor auto-summarizes *mid-task*, `/context-compact`
-  re-reads the index from disk. That is recovery, not session end.
+  it — it never runs unprompted.
+- **Continue.** `/compact` keeps the newest content densest — and the newest
+  content is the handoff block, so nothing needs copying. A fresh chat doesn't
+  have it, so paste it there.
 
 ## What lives where
 
 Every file has a defined load behavior: always, targeted, or on demand.
 Whatever loads always stays small — index files hold references, not
 explanations.
-
-> The file names below use the Claude Code harness as the running example
-> (`CLAUDE.md`, `~/.claude/`, per-module `CLAUDE.md`). The tool-neutral
-> contract is `AGENTS.md`; each harness maps the rest — with Cursor the
-> equivalents are `AGENTS.md`, `~/.cursor/rules/` and `.cursor/rules/<area>.mdc`
-> with globs. See `harnesses/` in the methodology repo.
 
 | File | Read | Content |
 |---|---|---|
@@ -86,7 +78,7 @@ Rules live on three layers, each with a defined audience:
 
 - **`~/.claude/CLAUDE.md`** — the person: communication and working style,
   valid on this machine in every repo (maintained in this repo under
-  `global/`).
+  `CLAUDE/global/`).
 - **`CLAUDE.md`** — the repo: committed. In team repos it is a team
   contract — it enforces only what the team agreed on, plus project facts.
 - **`CLAUDE.local.md`** — the person in this repo: personal collaboration

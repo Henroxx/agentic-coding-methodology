@@ -1,18 +1,15 @@
 # Working rules — {{PROJECT}}
 
-Binding for the collaboration in this repo. Tool-agnostic: this file is
-`AGENTS.md`. Cursor loads it as the project agent contract. Other harnesses
-that honor AGENTS.md do the same; see `harnesses/` in the methodology repo
-for extra wiring.
+Binding for the collaboration in this repo.
 
 ## Core
 
 {{CORE_SENTENCE}}
 <!-- One sentence fixing the division of labor. Example:
-     "{{NAME}} keeps control, the agent explains, we work in small
+     "{{NAME}} keeps control, Claude explains, we work in small
       verifiable steps." -->
 
-- {{NAME}} decides architecture, interfaces and direction. The agent executes.
+- {{NAME}} decides architecture, interfaces and direction. Claude executes.
 - **Actively challenge** {{NAME}}'s input: name weaknesses, risks and better
   alternatives openly instead of just complying — {{NAME}} decides afterwards.
 - **No silent decisions.** Name the options briefly, give a reasoned
@@ -28,8 +25,6 @@ for extra wiring.
 
 Read: this file, `docs/agentcontext/PROJECT.md` as index. In `docs/agentcontext/DETAILS.md` jump
 **only into the relevant sections**, never read it fully.
-If this chat was just compacted or summarized, re-read `PROJECT.md` from disk
-before continuing — the summary is not the index.
 {{ADDITIONAL_START_FILES}}
 
 ## Workflow
@@ -97,7 +92,7 @@ before continuing — the summary is not the index.
 
 ## Docs — layout
 
-- **`AGENTS.md`** → behavior rules only (loaded every session). No repo
+- **`CLAUDE.md`** → behavior rules only (loaded every session). No repo
   status, no architecture, no commands.
 - **`docs/agentcontext/PROJECT.md`** → state and index: goal, status, to-dos, open
   decisions, references to DETAILS sections. Clear and short.
@@ -133,23 +128,17 @@ keeps anyway, not a replacement:
   step, so a plain "continue" right after the compact still lands.
 - If a handoff block appeared in the conversation, add anything from it that
   the summary does not already cover.
-- After compact, the next agent turn must re-read `docs/agentcontext/PROJECT.md`
-  from disk. The summary is not a substitute for the index.
 
 ## Session end
 
-Before finishing a task and **before every compact/summarize** (guideline ~150k
+Before finishing a task and **before every `/compact`** (guideline ~150k
 tokens): propose `/handoff` and wait for the go — persist the session delta
-and generate the handoff block. Never run it out of nowhere. After handoff:
-open a fresh chat and paste the block. Do not compact this chat to continue.
-If a compact happens mid-task anyway, re-read `PROJECT.md` from disk (Cursor:
-`/context-compact`).
+and generate the handoff block for the next session. Never run it out of
+nowhere.
 
 ---
 
-New behavior rules land here by default. Globalize into the user-level rule
-(harness-specific — Cursor: `~/.cursor/rules/agentic-coding.mdc`, Claude Code:
-`~/.claude/CLAUDE.md`; see `harnesses/`) only once something proved itself
-across projects.
+New behavior rules land here by default. Globalize into `~/.claude/CLAUDE.md`
+only once something proved itself across projects.
 
 methodology: {{METHODOLOGY_VERSION}}

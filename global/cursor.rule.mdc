@@ -5,9 +5,10 @@ alwaysApply: true
 
 Read and follow the versioned file:
 
-`~/dev/private_repos/agentic-coding-methodology/global/AGENTS.md`
+`<methodology-root>/global/AGENTS.md`
 
-(If `AGENTIC_METHODOLOGY_ROOT` is set, use that path instead.)
+Replace `<methodology-root>` with this machine's clone path. If
+`AGENTIC_METHODOLOGY_ROOT` is set, use that path instead.
 
 ## Personal (private — never committed anywhere)
 

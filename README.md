@@ -26,25 +26,49 @@ harness, and adding another (e.g. codex) is one more.
 
 1. Make the skills available globally (once), for your harness.
 
-   Cursor:
+   Cursor (macOS/Linux):
 
    ```bash
-   ln -s <clone>/skills/setup-project  ~/.cursor/skills/setup-project
-   ln -s <clone>/skills/update-project ~/.cursor/skills/update-project
+   ln -s <clone>/skills/setup-project    ~/.cursor/skills/setup-project
+   ln -s <clone>/skills/update-project   ~/.cursor/skills/update-project
+   ln -s <clone>/skills/context-compact  ~/.cursor/skills/context-compact
    ```
 
-   Claude Code:
+   Cursor (Windows PowerShell; junctions do not require Developer Mode):
+
+   ```powershell
+   $clone = "C:\path\to\agentic-coding-methodology"
+   New-Item -ItemType Junction -Path "$HOME\.cursor\skills\setup-project" -Target "$clone\skills\setup-project"
+   New-Item -ItemType Junction -Path "$HOME\.cursor\skills\update-project" -Target "$clone\skills\update-project"
+   New-Item -ItemType Junction -Path "$HOME\.cursor\skills\context-compact" -Target "$clone\skills\context-compact"
+   ```
+
+   Maintainer-only (`/sync-upstream` pulls Henroxx into this fork):
+
+   ```bash
+   ln -s <clone>/skills/sync-upstream ~/.cursor/skills/sync-upstream
+   ```
+
+   On Windows, create the same junction with:
+
+   ```powershell
+   New-Item -ItemType Junction -Path "$HOME\.cursor\skills\sync-upstream" -Target "$clone\skills\sync-upstream"
+   ```
+
+   Claude Code (macOS/Linux):
 
    ```bash
    ln -s <clone>/skills/setup-project  ~/.claude/skills/setup-project
    ln -s <clone>/skills/update-project ~/.claude/skills/update-project
    ```
 
-   Then wire the global preferences. Both harnesses point at the same
-   versioned `global/AGENTS.md` — a shared, generic baseline — and keep your
-   name and machine-private facts below the import — Cursor via
-   `~/.cursor/rules/agentic-coding.mdc` (template: `global/cursor.rule.mdc`),
-   Claude Code via an `@`-import in `~/.claude/CLAUDE.md`.
+   Optional: wire `global/AGENTS.md` only if you want its preferences in
+   **every** repo. Cursor user rules with `alwaysApply: true` affect every
+   Cursor agent, including repos that do not use this methodology. Template:
+   `global/cursor.rule.mdc`. For selected repos only, put the same pointer and
+   your private machine facts in that repo's gitignored
+   `.cursor/rules/local.mdc`. Claude Code can use an `@`-import in
+   `~/.claude/CLAUDE.md`.
 
 2. In any new project, run:
 
@@ -62,6 +86,7 @@ harness, and adding another (e.g. codex) is one more.
 ```
 AGENTS.md                # this repo's own working rules
 METHODOLOGY.md           # the concept: workflow, file roles, principles
+CLAUDE/                  # read-only vendor copy of Henroxx's tree — do not edit
 global/                  # user-level preferences
   AGENTS.md              # shared, generic baseline (name/machine facts stay local)
   cursor.rule.mdc        # alwaysApply wrapper for ~/.cursor/rules/
@@ -71,11 +96,14 @@ templates/               # source of truth for scaffolded files
 skills/
   setup-project/         # scaffolds the methodology into a repo
   update-project/        # pulls methodology updates into a scaffolded repo
+  sync-upstream/         # maintainer: translate Henroxx updates into this fork
+  context-compact/       # Cursor: re-inject after mid-task summarize
   handoff/               # ends a session cleanly, persists the session delta
 harnesses/               # per-tool wiring (contract file, skills, local rules)
   README.md              # the harness contract + mapping table
   cursor.md              # Cursor wiring
   claude.md              # Claude Code wiring
+  upstream.md            # Henroxx path map, kept-local list, upstream stamp
 variants/                # deltas on the core: work (license rules), thesis (planned)
 ```
 

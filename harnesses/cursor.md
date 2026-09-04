@@ -15,9 +15,13 @@ unless the user also chose `claude`.
 
 ## Compact
 
+Happy path: `/handoff`, then a **fresh chat** with the pasted block.
+Do not compact-and-stay after handoff — the old chat is leftover.
+
 Cursor has no SessionStart hook that re-injects files after summarize.
-Recovery is the AGENTS.md rule: after compact, re-read PROJECT.md from
-disk. `/handoff` before compact is still the real protection.
+If Cursor auto-summarizes mid-task (or the user ran `/summarize` by
+accident), `/context-compact` re-reads PROJECT.md and AGENTS.md from
+disk. Propose `/handoff` *before* any compact so the delta is not lost.
 
 ## Personal rules in a shared repo
 
@@ -36,16 +40,30 @@ alwaysApply: true
 Skills (junction or copy):
 
 ```
-<methodology-root>/skills/setup-project  →  ~/.cursor/skills/setup-project
-<methodology-root>/skills/update-project →  ~/.cursor/skills/update-project
+<methodology-root>/skills/setup-project    →  ~/.cursor/skills/setup-project
+<methodology-root>/skills/update-project   →  ~/.cursor/skills/update-project
+<methodology-root>/skills/context-compact  →  ~/.cursor/skills/context-compact
 ```
 
 `handoff` is project-local after setup. A global copy is optional.
+`sync-upstream` is maintainer-only (this methodology repo); junction it
+the same way if you pull Henroxx updates here:
 
-Global preferences: `~/.cursor/rules/agentic-coding.mdc` with
-`alwaysApply: true`, pointing at `global/AGENTS.md` in the methodology
-repo, plus machine-private facts below. Template:
-`global/cursor.rule.mdc`.
+```
+<methodology-root>/skills/sync-upstream → ~/.cursor/skills/sync-upstream
+```
+
+## Optional preferences
+
+Do **not** install `~/.cursor/rules/agentic-coding.mdc` by default. An
+`alwaysApply: true` user rule is read by every Cursor agent, including repos
+that do not use this methodology.
+
+- Every repo: user-level `~/.cursor/rules/agentic-coding.mdc`, pointing at
+  `global/AGENTS.md`, with machine-private facts below. Template:
+  `global/cursor.rule.mdc`.
+- Selected repos only (recommended): put that pointer and the private facts
+  in the repo's gitignored `.cursor/rules/local.mdc`.
 
 ## Module rules
 

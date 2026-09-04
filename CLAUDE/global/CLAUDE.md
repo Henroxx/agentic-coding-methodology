@@ -1,9 +1,6 @@
-# Global preferences (starter baseline)
+# Global — Henry's preferences
 
-Shared, generic baseline for working with coding agents. Adopt it as-is or
-edit to taste. Anything personal — your name, machine facts, private tweaks —
-lives in the local harness wrapper below the import (see `## Personal &
-machine facts`), never in this versioned file.
+My name is Henry.
 
 ## Communication
 
@@ -23,19 +20,19 @@ machine facts`), never in this versioned file.
 - I value interpretability and control — make your reasoning visible,
   don't do things silently.
 - Git: stage by path — never `git add -A`, `git add .` or `git commit -a`.
-  Several chats may share one working tree; a broad add can silently sweep
+  I often run several chats in one working tree; a broad add silently sweeps
   another chat's files into a commit whose message then lies about them.
   Read `git status` before committing and leave foreign changes alone.
 - New projects: before any coding starts, set up the working methodology
-  (`/setup-project`) — the project `AGENTS.md` carries all code, git and
+  (`/setup-project`) — the project CLAUDE.md carries all code, git and
   dependency rules.
 
-## Personal & machine facts
+## Machine
 
-Personal, machine-specific facts do **not** go here — this file is versioned
-and shared. A harness can load it globally or only in selected repos (see
-`harnesses/`). The private wrapper holds your name and machine facts below the
-pointer, where they never get committed. Examples of what belongs there:
+Machine-wide facts about my computer. If you adopt this file for yourself,
+replace or remove these — and note the pattern: your local
+`~/.claude/CLAUDE.md` imports this file via `@` and can hold additional
+machine facts below the import that never get committed.
 
-- your name, so the agent can address you
-- OS, package manager, tool paths, and other machine-wide facts
+- Docker runs via Colima, not Docker Desktop.
+- Homebrew is a user-level install at `~/homebrew`.
