@@ -134,7 +134,9 @@ keeps anyway, not a replacement:
 Before finishing a task and **before every `/compact`** (guideline ~150k
 tokens): propose `/handoff` and wait for the go — persist the session delta
 and generate the handoff block for the next session. Never run it out of
-nowhere.
+nowhere. The handoff block must include a difficulty score (1–10), suggested model
+size (`small` | `medium` | `big`), and thinking budget (`low` | `medium` | `high`)
+with a 1-sentence rationale (calibrated in the `/handoff` skill).
 
 ---
 

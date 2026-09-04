@@ -78,9 +78,11 @@ keeps anyway, not a replacement:
 ## Session end
 
 After every finished task, and at ~150k tokens at the latest, **propose**
-`/handoff` — it never runs unprompted. After the handoff: fresh chat, paste
-the block. Do not compact this chat to continue. Mid-task auto-summarize:
-`/context-compact`.
+`/handoff` — it never runs unprompted. The handoff block must include difficulty
+(1–10), suggested model size (`small` | `medium` | `big`), and thinking budget
+(`low` | `medium` | `high`) with a 1-sentence rationale (calibrated in the
+`/handoff` skill). After the handoff: fresh chat, paste the block. Do not compact
+this chat to continue. Mid-task auto-summarize: `/context-compact`.
 
 ---
 

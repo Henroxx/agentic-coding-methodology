@@ -32,7 +32,8 @@ Plan → your OK → Task (persist decisions the moment they fall)
   end. What only exists in the chat is lost.
 - **/handoff.** After every finished task, at latest around ~150k tokens.
   Collects what only lived in the chat, writes it to `docs/agentcontext/`, and outputs a
-  short block for the next session. The agent proposes it, the human triggers
+  short block for the next session (including difficulty rating, suggested model
+  size, and thinking budget). The agent proposes it, the human triggers
   it — it never runs unprompted. Do this *before* any compact: the delta
   check needs the uncompacted session.
 - **Continue.** New chat, paste the block. After handoff the old chat is

@@ -33,7 +33,8 @@ Plan → your OK → Task (persist decisions the moment they fall)
   end. What only exists in the chat is lost.
 - **/handoff.** After every finished task, at latest around ~150k tokens.
   Collects what only lived in the chat, writes it to `docs/agentcontext/`, and outputs a
-  short block for the next session. The agent proposes it, the human triggers
+  short block for the next session (including difficulty rating, suggested model
+  size, and thinking budget). The agent proposes it, the human triggers
   it — it never runs unprompted.
 - **Continue.** `/compact` keeps the newest content densest — and the newest
   content is the handoff block, so nothing needs copying. A fresh chat doesn't

@@ -71,6 +71,11 @@ apply**:
 
 - **Task** — what the next session works on (from the argument; without an
   argument, derive it from the to-dos and mark it as a suggestion)
+- **Difficulty** — score 1–10 | Model: `small` | `medium` | `big` | Thinking: `low` | `medium` | `high` (one-sentence rationale). Calibration:
+  - 1–3: `small` model, `low` thinking — routine edits, docs/copy changes, isolated bugfixes, small self-contained helpers.
+  - 4–6: `medium` model, `medium` thinking — multi-step features, component extractions, standard logic with well-bounded interfaces.
+  - 7–8: `big` model, `high` thinking — complex architectural pivots, async lifecycle/concurrency, tricky state machines, cross-system integration.
+  - 9–10: `big` model, `high` thinking — high ambiguity, cross-process OS edge cases, deep distributed debugging or multi-subsystem overhaul.
 - **State** — branch, last commit, what works, what is open
 - **Reading pointers** — references only (e.g. "DETAILS.md → section
   Sessionization"), never duplicate content that already lives in files

@@ -140,10 +140,12 @@ keeps anyway, not a replacement:
 
 Before finishing a task and **before every compact/summarize** (guideline ~150k
 tokens): propose `/handoff` and wait for the go — persist the session delta
-and generate the handoff block. Never run it out of nowhere. After handoff:
-open a fresh chat and paste the block. Do not compact this chat to continue.
-If a compact happens mid-task anyway, re-read `PROJECT.md` from disk (Cursor:
-`/context-compact`).
+and generate the handoff block. Never run it out of nowhere. The handoff block
+must include a difficulty score (1–10), suggested model size (`small` | `medium` | `big`),
+and thinking budget (`low` | `medium` | `high`) with a 1-sentence rationale
+(calibrated in the `/handoff` skill). After handoff: open a fresh chat and paste
+the block. Do not compact this chat to continue. If a compact happens mid-task
+anyway, re-read `PROJECT.md` from disk (Cursor: `/context-compact`).
 
 ---
 
